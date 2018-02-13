@@ -17,14 +17,31 @@ def connectSlack():
     except:
         print('connect error')
 
+
+
 def on_message(ws, message):
+    print(message)
     message = json.loads(message)
+
     if 'type' not in message.keys() or message['type'] != 'message':
         return
-    print(message)
-    res = {
-        'channel': message['channel'],
-        'type': 'message',
-        'text': t.translator(message['text'])
-    }
-    ws.send(json.dumps(res))
+    if translator_check(message['text']):
+        res = {
+            'channel': message['channel'],
+            'type': 'message',
+            'text': t.translator(message['text'])
+        }
+        ws.send(json.dumps(res))
+
+def translator_check(input):
+    if "영한:" in input:
+        if input.find("영한:") == 0:
+            input = input.split(":")
+            if len(input[1]) >= 2:
+                return True
+    if "한영:" in input:
+        if input.find("한영:") == 0:
+            input = input.split(":")
+            if len(input[1]) >= 2:
+                return True
+    return False
