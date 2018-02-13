@@ -7,7 +7,7 @@ import translator as t
 
 
 def connectSlack():
-    url = d.Urls.base_url.value + d.Urls.token.value
+    url = d.SlackUrls.base_url.value + d.SlackUrls.token.value
     url_ws = req.get(url)
     try:
         socket_endpoint = url_ws.json()['url']
@@ -20,7 +20,7 @@ def connectSlack():
 
 
 def on_message(ws, message):
-    print(message)
+    # print(message)
     message = json.loads(message)
 
     if 'type' not in message.keys() or message['type'] != 'message':
