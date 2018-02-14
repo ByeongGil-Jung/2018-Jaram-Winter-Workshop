@@ -1,12 +1,12 @@
 [[source]]
 
 url = "https://pypi.python.org/simple"
-verify_ddl = true
+verify_ssl = true
 
 [packages]
 
-websocket-client = "0.46"
+websocket-client = "0.46.0"
 
 [requires]
 
-python_version = "3.6"
+python_version = "3.6.3"
