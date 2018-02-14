@@ -5,8 +5,8 @@ verify_ssl = true
 
 [packages]
 
-websockets = "4.0"
-websocket-client = "0.46"
+websockets = "*"
+websocket-client = "*"
 
 [requires]
 
