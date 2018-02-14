@@ -5,8 +5,8 @@ verify_ddl = true
 
 [packages]
 
-websocket-client = "0.46.0"
+websocket-client = "0.46"
 
 [requires]
 
-python_version = "3.6.3"
+python_version = "3.6"
