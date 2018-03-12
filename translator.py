@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-import urllib.request
 import urllib.parse
-import data as d
+import requests
+from TranslateBot import data as d
 
 def translator(input):
     inputtext = input.split(":")
@@ -19,21 +19,25 @@ def translator(input):
 
     client_id = d.NaverUrls.client_id.value
     client_secret = d.NaverUrls.client_secret.value
-    encText = urllib.parse.quote(btext)
-    data = "source="+blanguage+"&target="+alanguage+"&text=" + encText
+    data = {
+        'source': blanguage,
+        'target': alanguage, 
+        'text': btext
+    }
     url = "https://openapi.naver.com/v1/papago/n2mt"
-    request = urllib.request.Request(url)
-    request.add_header("X-Naver-Client-Id", client_id)
-    request.add_header("X-Naver-Client-Secret", client_secret)
-    response = urllib.request.urlopen(request, data=data.encode("utf-8"))
-    rescode = response.getcode()
+    response = requests.post(url, data=data, headers={
+        'X-Naver-Client-Id': client_id,
+        'X-Naver-Client-Secret': client_secret
+    })
+    rescode = response.status_code
 
     if rescode == 200:
-        response_body = response.read()
+        response_body = response.json()
         # print(response_body.decode('utf-8'))
-        atext = response_body.decode('utf-8').split('\"')[27]
+        print(response_body)
+        atext = response_body['message']['result']['translatedText']
         return atext
     else:
-        print("Error Code:" + rescode)
+        print("Error Code:", rescode)
         print("번역실패")
         return None
