@@ -2,8 +2,8 @@ import requests as req
 import websocket
 import json
 
-import data as d
-import translator as t
+from TranslateBot import data as d
+from TranslateBot import translator as t
 
 
 def connectSlack():
